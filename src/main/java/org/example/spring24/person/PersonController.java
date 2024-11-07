@@ -1,5 +1,6 @@
 package org.example.spring24.person;
 
+import org.example.spring24.person.dto.PersonDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
