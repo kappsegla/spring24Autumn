@@ -1,5 +1,9 @@
 package org.example.spring24.person.valueobject;
 
-public enum SocialPlatform {
-    TWITTER,FACEBOOK,LINKEDIN
+public record SocialPlatform(String platformName) {
+
+    public SocialPlatform {
+        if (platformName == null || platformName.isEmpty())
+            throw new IllegalArgumentException();
+    }
 }

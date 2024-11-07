@@ -3,6 +3,7 @@ package org.example.spring24.person;
 import org.example.spring24.person.dto.PersonDto;
 import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.example.spring24.person.entity.Person;
+import org.example.spring24.person.entity.SocialMedia;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,4 +37,5 @@ public class PersonService {
                 .map(PersonWithSocialMedia::fromPerson)
                 .toList();
     }
+
 }

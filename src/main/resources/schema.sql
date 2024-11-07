@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS social_media
 (
     id        INT AUTO_INCREMENT PRIMARY KEY,
     person_id INT,
-    platform  ENUM ('TWITTER','FACEBOOK','LINKEDIN') NOT NULL,
-    handle    VARCHAR(255)                           NOT NULL,
+    platform  VARCHAR(255) NOT NULL,
+    handle    VARCHAR(255) NOT NULL,
     FOREIGN KEY (person_id) REFERENCES person (id)
 );

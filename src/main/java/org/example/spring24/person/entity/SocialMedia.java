@@ -3,6 +3,7 @@ package org.example.spring24.person.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.example.spring24.person.converter.SocialPlatformConverter;
 import org.example.spring24.person.valueobject.SocialPlatform;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -22,7 +23,7 @@ public class SocialMedia {
     @Size(max = 50)
     @NotNull
     @Column(name = "platform", nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = SocialPlatformConverter.class)
     private SocialPlatform platform;
 
     @Size(max = 255)
