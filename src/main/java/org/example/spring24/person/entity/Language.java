@@ -1,9 +1,6 @@
 package org.example.spring24.person.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.proxy.HibernateProxy;
@@ -14,6 +11,7 @@ import java.util.Objects;
 @Table(name = "language", schema = "mydatabase")
 public class Language {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -21,6 +19,13 @@ public class Language {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    public Language() {}
+
+    public Language(String name) {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

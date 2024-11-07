@@ -9,3 +9,11 @@ Content-Type: application/json
   "name": "Anna",
   "programmer": true
 }
+
+###
+POST http://localhost:8080/persons/1/languages
+Content-Type: application/json
+
+{
+  "languages": ["java","rust","english"]
+}

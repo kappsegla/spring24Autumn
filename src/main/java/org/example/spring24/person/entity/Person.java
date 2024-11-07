@@ -3,6 +3,8 @@ package org.example.spring24.person.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -95,6 +97,10 @@ public class Person {
     public void addSocialMedia(SocialMedia socialMedia) {
         this.socialMedia.add(socialMedia);
         socialMedia.setPerson(this);
+    }
+
+    public void addLanguage(Language language) {
+        this.languages.add(language);
     }
 
     @Override

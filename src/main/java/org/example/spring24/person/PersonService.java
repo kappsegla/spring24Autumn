@@ -1,10 +1,12 @@
 package org.example.spring24.person;
 
+import org.example.spring24.language.LanguageService;
 import org.example.spring24.person.dto.PersonDto;
 import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.example.spring24.person.entity.Person;
-import org.example.spring24.person.entity.SocialMedia;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class PersonService {
 
     PersonRepository personRepository;
+    LanguageService languageService;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, LanguageService languageService) {
         this.personRepository = personRepository;
+        this.languageService = languageService;
     }
 
     public List<PersonDto> allPersons() {
@@ -38,4 +42,13 @@ public class PersonService {
                 .toList();
     }
 
+    public void addLanguages(int personId, List<String> languages) {
+        Person person = personRepository.findById(personId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Person not found"));
+        languages.stream()
+                .map(languageService::getLanguageOrCreate)
+                .forEach(person::addLanguage);
+        personRepository.save(person);
+    }
 }
