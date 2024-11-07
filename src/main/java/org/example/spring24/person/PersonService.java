@@ -1,6 +1,7 @@
 package org.example.spring24.person;
 
 import org.example.spring24.person.dto.PersonDto;
+import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.example.spring24.person.entity.Person;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class PersonService {
         person.setProgrammer(personDto.programmer());
         person = personRepository.save(person);
         return person.getId();
+    }
+
+    public List<PersonWithSocialMedia> allPersonsWithSocialMedia() {
+        return personRepository.findAll().stream()
+                .map(PersonWithSocialMedia::fromPerson)
+                .toList();
     }
 }

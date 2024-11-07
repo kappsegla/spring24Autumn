@@ -1,6 +1,7 @@
 package org.example.spring24.person;
 
 import org.example.spring24.person.dto.PersonDto;
+import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,8 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public List<PersonDto> getAllPersons() {
-        return personService.allPersons();
+    public List<PersonWithSocialMedia> getAllPersons() {
+        return personService.allPersonsWithSocialMedia();
     }
 
     @PostMapping("/persons")
