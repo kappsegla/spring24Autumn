@@ -6,6 +6,7 @@ import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.example.spring24.person.entity.Person;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class PersonService {
                 .toList();
     }
 
+    @Transactional
     public void addLanguages(int personId, List<String> languages) {
         Person person = personRepository.findById(personId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND,

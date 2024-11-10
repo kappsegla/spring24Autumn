@@ -1,12 +1,9 @@
 package org.example.spring24.person;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.example.spring24.person.dto.LanguagesDto;
 import org.example.spring24.person.dto.PersonDto;
 import org.example.spring24.person.dto.PersonWithSocialMedia;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +38,4 @@ public class PersonController {
         log.info("Add languages for id {}, {}", id, languagesDto.languages());
         personService.addLanguages(id, languagesDto.languages());
     }
-
 }
