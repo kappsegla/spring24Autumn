@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -23,7 +25,11 @@ public class Security {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                        authorize.anyRequest().authenticated())
+                        authorize
+                                .requestMatchers(GET, "/persons").permitAll()
+                                .requestMatchers(POST, "/persons").hasRole("ADMIN")
+                                .requestMatchers(POST, "/persons/**").authenticated()
+                                .anyRequest().denyAll())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(withDefaults())
@@ -40,6 +46,9 @@ public class Security {
                 .password(encoder.encode("password"))
                 .roles("USER")
                 .build();
+        System.out.println(encoder.encode("password"));
+        System.out.println(encoder.encode("password"));
+
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(encoder.encode("password"))
