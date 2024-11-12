@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "language", schema = "mydatabase")
-public class Language {
+public class LanguageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,11 +20,17 @@ public class Language {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public Language() {}
+    public LanguageEntity() {}
 
-    public Language(String name) {
+    public LanguageEntity(String name) {
         name = name.substring(0, 1).toUpperCase() + name.substring(1);
         this.name = name;
+    }
+
+    public LanguageEntity(Integer id, String name) {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        this.name = name;
+        this.id = id;
     }
 
     public Integer getId() {
@@ -50,7 +56,7 @@ public class Language {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Language language = (Language) o;
+        LanguageEntity language = (LanguageEntity) o;
         return getId() != null && Objects.equals(getId(), language.getId());
     }
 

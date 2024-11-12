@@ -1,14 +1,13 @@
 package org.example.spring24.language;
 
-import org.example.spring24.person.entity.Language;
-import org.springframework.data.jpa.repository.Query;
+import org.example.spring24.person.entity.LanguageEntity;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.Optional;
 
-public interface LanguageRepository extends ListCrudRepository<Language, Integer> {
+interface LanguageRepository extends ListCrudRepository<LanguageEntity, Integer> {
 
-    Optional<Language> findByName(String name);
+    Optional<LanguageEntity> findByName(String name);
 
 
 
