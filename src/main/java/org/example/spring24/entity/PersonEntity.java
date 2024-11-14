@@ -39,7 +39,7 @@ public class PersonEntity {
     private Set<LanguageEntity> languages = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "person")
-    private Set<SocialMediaEntity> socialMedia = new LinkedHashSet<>();
+    private Set<SocialMediaEntity> socialMedias = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -81,17 +81,17 @@ public class PersonEntity {
         this.languages = languages;
     }
 
-    public Set<SocialMediaEntity> getSocialMedia() {
-        return socialMedia;
+    public Set<SocialMediaEntity> getSocialMedias() {
+        return socialMedias;
     }
 
-    public void setSocialMedia(Set<SocialMediaEntity> socialMedia) {
-        this.socialMedia = socialMedia;
+    public void setSocialMedias(Set<SocialMediaEntity> socialMedia) {
+        this.socialMedias = socialMedia;
     }
 
 
     public void addSocialMedia(SocialMediaEntity socialMedia) {
-        this.socialMedia.add(socialMedia);
+        this.socialMedias.add(socialMedia);
         socialMedia.setPerson(this);
     }
 

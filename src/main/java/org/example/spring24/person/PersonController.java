@@ -30,7 +30,7 @@ public class PersonController {
 
     @GetMapping("/persons")
     public List<PersonWithSocialMedia> getAllPersons() {
-        return personService.allPersonsWithSocialMedia();
+        return  personService.allPersonsWithSocialMedia();
     }
 
     @PostMapping("/persons")
