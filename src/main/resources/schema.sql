@@ -33,3 +33,20 @@ CREATE TABLE IF NOT EXISTS social_media
     handle    VARCHAR(255) NOT NULL,
     FOREIGN KEY (person_id) REFERENCES person (id)
 );
+
+-- Table for storing api keys
+CREATE TABLE IF NOT EXISTS api_key
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    api_key     VARCHAR(255) NOT NULL,
+    name        VARCHAR(255) NOT NULL,
+    valid_until DATETIME     NOT NULL,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Index for faster lookups by api_key
+#CREATE INDEX idx_api_key ON api_key(api_key);
+
+-- Index for faster lookups by name
+#CREATE INDEX idx_name ON api_key(name);
