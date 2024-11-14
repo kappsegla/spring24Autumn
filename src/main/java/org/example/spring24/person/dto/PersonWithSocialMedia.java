@@ -1,6 +1,6 @@
 package org.example.spring24.person.dto;
 
-import org.example.spring24.person.entity.PersonEntity;
+import org.example.spring24.entity.PersonEntity;
 
 import java.util.List;
 

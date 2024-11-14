@@ -1,6 +1,6 @@
 package org.example.spring24.language;
 
-import org.example.spring24.person.entity.LanguageEntity;
+import org.example.spring24.entity.LanguageEntity;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.Optional;

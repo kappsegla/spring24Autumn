@@ -1,7 +1,7 @@
 package org.example.spring24.language;
 
 import org.example.spring24.language.api.Language;
-import org.example.spring24.person.entity.LanguageEntity;
+import org.example.spring24.entity.LanguageEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

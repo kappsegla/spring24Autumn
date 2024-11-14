@@ -1,4 +1,4 @@
-package org.example.spring24.person.entity;
+package org.example.spring24.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
