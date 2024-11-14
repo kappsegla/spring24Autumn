@@ -5,9 +5,13 @@ import org.example.spring24.person.dto.LanguagesDto;
 import org.example.spring24.person.dto.PersonDto;
 import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -38,4 +42,28 @@ public class PersonController {
         log.info("Add languages for id {}, {}", id, languagesDto.languages());
         personService.addLanguages(id, languagesDto.languages());
     }
+
+    @GetMapping("/api/test")
+    @PreAuthorize("hasAuthority('read:test')")
+    @PostFilter("filterObject.name == authentication.name")
+    public Collection<Test> test() {
+        return new ArrayList<>(List.of(
+                new Test("A123B", "This info belongs to A123B"),
+                new Test("A123B", "This info also belongs to A123B"),
+                new Test("AB", "This info belongs to AB"),
+                new Test("Test", "This info belongs to Test")
+        ));
+    }
+
+    public record Test(String name, String info) {
+    }
 }
+
+
+//RBAC - Role based access control
+//ACL - Access Control List  ( file system )
+//ABAC - Attribute based access control,
+// Ask if we can do something based on
+// Who are we? What do we want to do?
+// What's the time? Which computer are we using?
+// and everything else ...

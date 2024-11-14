@@ -8,7 +8,4 @@ import java.util.Optional;
 interface LanguageRepository extends ListCrudRepository<LanguageEntity, Integer> {
 
     Optional<LanguageEntity> findByName(String name);
-
-
-
 }

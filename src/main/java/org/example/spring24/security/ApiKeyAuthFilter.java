@@ -52,6 +52,6 @@ public class ApiKeyAuthFilter extends GenericFilterBean {
             throw new BadCredentialsException("Invalid API Key");
         }
 
-        return new ApiKeyAuthentication(apiKey, AuthorityUtils.NO_AUTHORITIES);
+        return new ApiKeyAuthentication(apiKey, AuthorityUtils.createAuthorityList("read:test","read:test"));
     }
 }
