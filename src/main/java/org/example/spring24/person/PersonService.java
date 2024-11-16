@@ -5,6 +5,7 @@ import org.example.spring24.person.dto.PersonDto;
 import org.example.spring24.person.dto.PersonWithSocialMedia;
 import org.example.spring24.entity.LanguageEntity;
 import org.example.spring24.entity.PersonEntity;
+import org.example.spring24.person.projection.PersonWithSocialMediaProjection;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,11 @@ public class PersonService {
         return personRepository.findAll().stream()
                 .map(PersonWithSocialMedia::fromPerson)
                 .toList();
+    }
+
+    public List<PersonWithSocialMediaProjection> allPersonsWithSocialMediaProjection() {
+        //return personRepository.findAllPersonsWithSocialMedia();
+        return personRepository.findBy();
     }
 
     @Transactional

@@ -5,9 +5,8 @@ import org.example.spring24.apiauth.ApiKeyAuthService;
 import org.example.spring24.entity.ApiKey;
 import org.example.spring24.person.dto.LanguagesDto;
 import org.example.spring24.person.dto.PersonDto;
-import org.example.spring24.person.dto.PersonWithSocialMedia;
+import org.example.spring24.person.projection.PersonWithSocialMediaProjection;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +28,9 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public List<PersonWithSocialMedia> getAllPersons() {
-        return  personService.allPersonsWithSocialMedia();
+    public List<PersonWithSocialMediaProjection> getAllPersons() {
+        //return  personService.allPersonsWithSocialMedia();
+        return  personService.allPersonsWithSocialMediaProjection();
     }
 
     @PostMapping("/persons")
