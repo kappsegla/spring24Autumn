@@ -60,6 +60,7 @@ public class Security {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(GET, "/persons").permitAll()
+                                .requestMatchers(GET, "/index.html", "/js/**").permitAll()
                                 .requestMatchers(POST, "/persons").hasRole("ADMIN")
                                 .requestMatchers(POST, "/persons/**").authenticated()
                                 .anyRequest().denyAll())

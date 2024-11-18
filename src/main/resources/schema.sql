@@ -50,3 +50,8 @@ CREATE TABLE IF NOT EXISTS api_key
 
 -- Index for faster lookups by name
 #CREATE INDEX idx_name ON api_key(name);
+CREATE TABLE IF NOT EXISTS playground
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    coordinate GEOMETRY NOT NULL SRID 4326
+);
