@@ -63,6 +63,8 @@ public class Security {
                                 .requestMatchers(GET, "/index.html", "/js/**").permitAll()
                                 .requestMatchers(POST, "/persons").hasRole("ADMIN")
                                 .requestMatchers(POST, "/persons/**").authenticated()
+                                .requestMatchers("/playgrounds").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .anyRequest().denyAll())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
