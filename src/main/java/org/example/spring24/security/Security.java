@@ -1,9 +1,11 @@
 package org.example.spring24.security;
 
 import org.example.spring24.apiauth.ApiKeyAuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,6 +19,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Arrays;
+
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -25,16 +29,28 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class Security {
 
+    private final Environment env;
+
+    public Security(Environment env) {
+        this.env = env;
+    }
+
     @Bean
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http, ApiKeyAuthService apiKeyAuthService) throws Exception {
         http
                 .securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .addFilterBefore(new ApiKeyAuthFilter(apiKeyAuthService), UsernamePasswordAuthenticationFilter.class);
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
+
+        if (!isTestProfileActive()) {
+            http.addFilterBefore(new ApiKeyAuthFilter(apiKeyAuthService), UsernamePasswordAuthenticationFilter.class);
+        }
+
         return http.build();
     }
+
+    private boolean isTestProfileActive() { return Arrays.asList(env.getActiveProfiles()).contains("test"); }
 
     @Bean
     @Order(2)
