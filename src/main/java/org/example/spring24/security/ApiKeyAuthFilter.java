@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.spring24.apiauth.ApiKeyAuthService;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -32,7 +33,7 @@ public class ApiKeyAuthFilter extends GenericFilterBean {
         try {
             Authentication authentication = getAuthentication((HttpServletRequest) request);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (Exception exp) {
+        } catch (BadCredentialsException exp) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             httpResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -40,18 +41,24 @@ public class ApiKeyAuthFilter extends GenericFilterBean {
             writer.print(exp.getMessage());
             writer.flush();
             writer.close();
+            return; // Stop further processing if authentication fails
         }
 
         chain.doFilter(request, response);
     }
 
 
+
     public Authentication getAuthentication(HttpServletRequest request) {
         String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);
+        if (apiKey == null || apiKey.isEmpty()) {
+            return new AnonymousAuthenticationToken("anonymous", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+        }
         var name = apiKeyAuthService.isValidApiKey(apiKey);
         if (name.isEmpty()) {
             throw new BadCredentialsException("Invalid API Key");
         }
-        return new ApiKeyAuthentication(name.get(), AuthorityUtils.createAuthorityList("read:test","read:test"));
+        return new ApiKeyAuthentication(name.get(), AuthorityUtils.createAuthorityList("read:test", "read:test"));
     }
+
 }
