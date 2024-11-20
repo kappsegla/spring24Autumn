@@ -41,7 +41,9 @@ public class Security {
         http
                 .securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers("/api/playgrounds/**").permitAll()
+                        .anyRequest().authenticated());
 
         if (!isTestProfileActive()) {
             http.addFilterBefore(new ApiKeyAuthFilter(apiKeyAuthService), UsernamePasswordAuthenticationFilter.class);
@@ -60,10 +62,9 @@ public class Security {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(GET, "/persons").permitAll()
-                                .requestMatchers(GET, "/index.html", "/js/**").permitAll()
+                                .requestMatchers(GET, "/playgrounds/index.html", "/js/**").permitAll()
                                 .requestMatchers(POST, "/persons").hasRole("ADMIN")
                                 .requestMatchers(POST, "/persons/**").authenticated()
-                                .requestMatchers("/playgrounds").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().denyAll())
                 .sessionManagement(session ->
