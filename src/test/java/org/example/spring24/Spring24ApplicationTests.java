@@ -1,5 +1,6 @@
 package org.example.spring24;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -54,9 +55,11 @@ class Spring24ApplicationTests {
     }
 
     @Test
+    @Tag("smoke")
     @WithMockUser(authorities = "read:test")
-    void addPerson() throws Exception {
+    void callApiTestAsAuthenticatedUser() throws Exception {
         mockMvc.perform(get("/api/test"))
+                        //.header("X-API-KEY", "wEWM967DqqC9cBMGpxvr99GM"))
                 .andExpect(status().isOk());
     }
 

@@ -52,7 +52,9 @@ public class Security {
         return http.build();
     }
 
-    private boolean isTestProfileActive() { return Arrays.asList(env.getActiveProfiles()).contains("test"); }
+    private boolean isTestProfileActive() {
+        return Arrays.asList(env.getActiveProfiles()).contains("test");
+    }
 
     @Bean
     @Order(2)

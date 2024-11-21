@@ -9,7 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //Can it be removed when using spring boot 3.4?
 @TestPropertySource(properties = {
         "spring.datasource.url=jdbc:tc:mysql:latest:///mydatabase"
 })
