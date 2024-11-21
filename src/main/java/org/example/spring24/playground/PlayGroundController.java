@@ -2,6 +2,7 @@ package org.example.spring24.playground;
 
 import org.example.spring24.entity.Playground;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
