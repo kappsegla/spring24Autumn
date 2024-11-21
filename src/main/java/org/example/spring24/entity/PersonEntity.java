@@ -3,6 +3,7 @@ package org.example.spring24.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "person", schema = "mydatabase")
+@ToString
 public class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,4 +120,5 @@ public class PersonEntity {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
 }
