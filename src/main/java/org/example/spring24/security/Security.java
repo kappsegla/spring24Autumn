@@ -1,7 +1,6 @@
 package org.example.spring24.security;
 
 import org.example.spring24.apiauth.ApiKeyAuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -27,6 +26,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
+
 public class Security {
 
     private final Environment env;
@@ -43,7 +43,7 @@ public class Security {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers("/api/playgrounds/**").permitAll()
-                        .anyRequest().authenticated());
+                                .anyRequest().authenticated());
 
         if (!isTestProfileActive()) {
             http.addFilterBefore(new ApiKeyAuthFilter(apiKeyAuthService), UsernamePasswordAuthenticationFilter.class);
@@ -67,6 +67,19 @@ public class Security {
                                 .requestMatchers(GET, "/playgrounds/index.html", "/js/**").permitAll()
                                 .requestMatchers(POST, "/persons").hasRole("ADMIN")
                                 .requestMatchers(POST, "/persons/**").authenticated()
+                                .requestMatchers(
+//                                        "/v1/api/**",
+//                                        "/v2/api-docs",
+                                        "/v3/api-docs",
+                                        "/v3/api-docs/**",
+                                        "/swagger-resources",
+                                        "/swagger-resources/**",
+                                        "/configuration/ui",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().denyAll())
                 .sessionManagement(session ->
